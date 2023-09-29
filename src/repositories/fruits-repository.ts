@@ -1,5 +1,7 @@
+import { notFoundError } from "errors/notfound-error";
 import fruits from "../data/fruits";
 import { FruitInput } from "../services/fruits-service";
+import { conflictError } from "errors/conflict-error";
 
 export type Fruit = {
   id: number,
@@ -12,15 +14,35 @@ function getFruits() {
 }
 
 function getSpecificFruit(id: number): Fruit | undefined {
-  return fruits.find(fruit => {
-    return fruit.id === id;
-  });
+  const fruit = {
+    id: 1,
+    name: "morango",
+    price: 5.36
+  }
+
+  if (fruit.id == id) {
+    return fruit
+  }
+  else {
+    throw notFoundError()
+  }
+
+
+
 }
 
 function getSpecificFruitByName(name: string): Fruit | undefined {
-  return fruits.find(fruit => {
-    return fruit.name === name;
-  });
+
+  const fruit = {
+    id: 1,
+    name: "morango",
+    price: 5.36
+  }
+  if (fruit.name === name) {
+    return fruit
+  }
+
+  return undefined
 }
 
 function insertFruit(fruit: FruitInput) {
